@@ -1,3 +1,12 @@
+<?php/*
+*
+* Copyright (C) 2018, Hugo van Santen
+* All rights reserved.
+*
+* Please see the LICENSE file for more information.
+*
+*/
+?>
 <?php 
 class MyDB extends SQLite3 {
   function __construct() {
