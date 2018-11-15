@@ -1,16 +1,7 @@
-<?php/*
-*
-* Copyright (C) 2018, Hugo van Santen
-* All rights reserved.
-*
-* Please see the LICENSE file for more information.
-*
-*/
-?>
 <?php 
 class MyDB extends SQLite3 {
   function __construct() {
-     $this->open("/home/pi/MY_DB.db");
+     $this->open("/home/pi/user_database.db");
   }
 }
 $db = new MyDB();
@@ -20,7 +11,7 @@ $key2 = $_POST['KEY2'];
 $decrypt_key_2 = exec('/home/pi/aes_decrypt '.$key2);
 
 
-
+//echo("key1:$key1 and key2:$key2\n");
 //echo("SELECT name,card FROM users where card=\"$decrypt_key\"");
 //echo("\n");
 $result = $db->query("SELECT name,card, start_time, stop_time, permission FROM users WHERE card=\"$decrypt_key\"");

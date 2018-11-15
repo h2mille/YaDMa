@@ -36,7 +36,7 @@ def get_nfc():
 tab = get_nfc()
 i=-1
 print(tab)
-conn=sqlite3.connect('MY_DB.db')
+conn=sqlite3.connect('user_database..db')
 c = conn.cursor()
 format_tab = "{}".format("".join('{:02x}'.format(len(tab))))
 format_tab = format_tab+"{}".format("".join('{:02x}'.format(x) for x in tab))
@@ -49,10 +49,21 @@ if(card==None):
     start = raw_input("indiquez la date de début (dd/mm/yyyy):")
     stop = raw_input("indiquez la date de fin (dd/mm/yyyy):")
     permission = 255
-    print('''INSERT INTO users VALUES (?,?,?,?,?);''', (name,format_tab, start, stop, permission))
-    c.execute("INSERT INTO users VALUES (?,?,?,?,?);", (name,format_tab, start, stop, permission))
+    print("placez à nouveau la carte sur le lecteur")
+    tab2 = get_nfc()
+    if (tab2 == tab):
+        from subprocess import call
+	call('./set_auth')		
+        print('''INSERT INTO users VALUES (?,?,?,?,?);''', (name,format_tab, start, stop, permission))
+        c.execute("INSERT INTO users VALUES (?,?,?,?,?);", (name,format_tab, start, stop, permission))
+        print('utilisateur ajouté')
+    else:
+        print('mauvaise carte')
+
 else:
     print("carte déjà enregistrée:")
     print(card);
+
 conn.commit()
+
 conn.close()
